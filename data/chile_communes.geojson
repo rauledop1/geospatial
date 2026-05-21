@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "name": "Chile Communes - Santiago Sample",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Santiago",
+        "region": "Metropolitana",
+        "description": "Santiago Metropolitan Area"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-70.9, -33.65],
+            [-70.4, -33.65],
+            [-70.4, -33.25],
+            [-70.9, -33.25],
+            [-70.9, -33.65]
+          ]
+        ]
+      }
+    }
+  ]
+}

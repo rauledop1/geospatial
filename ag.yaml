@@ -1,0 +1,56 @@
+# Geoportal Chile - CBERS-4A Configuration
+
+geoportal:
+  title: "Geoportal de Monitoreo Comunal - Chile"
+  version: "1.0.0"
+  
+map:
+  default_center:
+    lat: -33.4489
+    lng: -70.6693
+    zoom: 8
+  bounds:
+    chile_continental:
+      min_lat: -56.0
+      max_lat: -17.5
+      min_lng: -76.0
+      max_lng: -66.0
+
+stac:
+  collections:
+    - CBERS4A_WPM_L4
+    - CBERS4A_MUX_L4
+    - CBERS4A_WFI_L4
+  default_collection: "CBERS4A_MUX_L4"
+
+# Band configurations for CBERS-4A sensors
+sensors:
+  WPM: # Wide Pan Multispectral (8m MS, 2m Pan)
+    bands:
+      blue: "band1"
+      green: "band2"
+      red: "band3"
+      nir: "band4"
+      pan: "pan"
+  MUX: # Multispectral (16m)
+    bands:
+      blue: "band5"
+      green: "band6"
+      red: "band7"
+      nir: "band8"
+  WFI: # Wide Field Imager (55m)
+    bands:
+      blue: "band13"
+      green: "band14"
+      red: "band15"
+      nir: "band16"
+
+spectral_indices:
+  ndvi:
+    formula: "(nir - red) / (nir + red)"
+    description: "Normalized Difference Vegetation Index"
+    colormap: "rdylgn"
+  ndwi:
+    formula: "(green - nir) / (green + nir)"
+    description: "Normalized Difference Water Index"
+    colormap: "coolwarm"

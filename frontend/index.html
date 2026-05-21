@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geoportal CBERS-4A - Monitoreo Comunal Chile</title>
+  <meta name="description" content="Geoportal de análisis de imágenes satelitales CBERS-4A para monitoreo de comunas de Chile en tiempo real utilizando COG y FastAPI.">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Main Style Sheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <h1>Geoportal CBERS-4A</h1>
+      <p>Monitoreo Comunal - Chile</p>
+    </div>
+    <div class="connection-badge" id="api-status-badge">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text">Backend Desconectado</span>
+    </div>
+  </header>
+
+  <div id="app-container">
+    <aside id="sidebar">
+      <!-- Search & Filters Section -->
+      <section class="panel-section">
+        <h3>Búsqueda de Escenas</h3>
+        
+        <div class="form-group">
+          <label for="sensor-select">Sensor CBERS-4A</label>
+          <select id="sensor-select" class="form-control">
+            <option value="MUX" selected>MUX (Multispectral - 16m)</option>
+            <option value="WPM">WPM (Wide Pan Multispectral - 8m/2m)</option>
+            <option value="WFI">WFI (Wide Field Imager - 55m)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="commune-select">Comuna de Chile</label>
+          <select id="commune-select" class="form-control">
+            <option value="">Seleccione una comuna...</option>
+            <option value="santiago">Santiago</option>
+            <option value="valparaiso">Valparaíso</option>
+            <option value="concepcion">Concepción</option>
+            <!-- Comunas dinámicas se cargarán desde el GeoJSON -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date-start">Fecha Inicio</label>
+          <input type="date" id="date-start" class="form-control" value="2025-01-01">
+        </div>
+
+        <div class="form-group">
+          <label for="date-end">Fecha Fin</label>
+          <input type="date" id="date-end" class="form-control" value="2026-05-20">
+        </div>
+
+        <button id="search-btn" class="btn-primary">
+          <span>Buscar Escenas</span>
+        </button>
+      </section>
+
+      <!-- Spectral Analysis Section -->
+      <section class="panel-section">
+        <h3>Procesamiento al Vuelo</h3>
+        
+        <div class="form-group">
+          <label for="index-select">Índice Espectral</label>
+          <select id="index-select" class="form-control">
+            <option value="raw">Color Natural (RGB)</option>
+            <option value="ndvi">NDVI (Vegetación)</option>
+            <option value="ndwi">NDWI (Agua)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="colormap-select">Paleta de Colores</label>
+          <select id="colormap-select" class="form-control" disabled>
+            <option value="rdylgn">Red-Yellow-Green (NDVI)</option>
+            <option value="coolwarm">Cool-Warm (NDWI)</option>
+            <option value="magma">Magma</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section class="panel-section">
+        <h3>Escenas Encontradas</h3>
+        <div id="results-container" class="results-list">
+          <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 1rem;">
+            Realice una búsqueda para cargar escenas.
+          </p>
+        </div>
+      </section>
+    </aside>
+
+    <main id="map-container">
+      <div id="map" aria-label="Mapa interactivo de Chile"></div>
+    </main>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- ES Modules Entrypoint -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
